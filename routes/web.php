@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/jobs', [JobController::class, 'index'])->name('job.index');
+    Route::post('/jobs', [JobController::class, 'index'])->name('job.index');
+    Route::get('/jobs/{uuid}', [JobController::class, 'detail'])->name('job.detail');
 });
+
 
 Auth::routes();
 
